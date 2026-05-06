@@ -1,0 +1,71 @@
+{
+  "name": "interview-copilot-ai",
+  "version": "1.0.0",
+  "description": "A floating AI assistant for interviews",
+  "main": "main/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "dev": "npm run build:renderer && electron .",
+    "start": "electron .",
+    "build": "npm run build:renderer && electron-builder",
+    "build:renderer": "vite build --outDir dist",
+    "preview": "vite preview",
+    "watch": "concurrently \"npm run build:renderer -- --watch\" \"wait-on dist/index.html && electron .\""
+  },
+  "keywords": [
+    "electron",
+    "react",
+    "ai",
+    "interview",
+    "assistant"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.10.6",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "concurrently": "^9.1.2",
+    "electron": "^24.8.8",
+    "electron-builder": "^25.1.8",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.11",
+    "wait-on": "^8.0.3"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.20",
+    "clsx": "^2.1.1",
+    "electron-store": "^8.0.0",
+    "framer-motion": "^12.38.0",
+    "lucide-react": "^0.475.0",
+    "openai": "^4.71.1",
+    "postcss": "^8.5.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.5.0",
+    "tailwindcss": "^3.4.17"
+  },
+  "build": {
+    "appId": "com.interview.copilot.ai",
+    "productName": "Interview Copilot AI",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "main/**/*",
+      "dist/**/*",
+      "preload.js",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.productivity"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  }
+}
