@@ -1,5 +1,4 @@
-const { app, BrowserWindow, ipcMain, globalShortcut } = require('electron');
-console.log('app:', app);
+const { app, BrowserWindow, ipcMain, globalShortcut, session } = require('electron');
 const path = require('path');
 const Store = require('electron-store');
 const { OpenAI } = require('openai');
@@ -49,6 +48,16 @@ function createWindow() {
       nodeIntegration: false,
       contextIsolation: true,
     },
+  });
+
+  // Handle permission requests (microphone, etc.)
+  mainWindow.webContents.session.setPermissionRequestHandler((webContents, permission, callback) => {
+    const allowedPermissions = ['media', 'microphone'];
+    if (allowedPermissions.includes(permission)) {
+      callback(true); // grant permission
+    } else {
+      callback(false);
+    }
   });
 
   // Apply initial transparency settings
